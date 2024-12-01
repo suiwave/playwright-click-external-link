@@ -1,50 +1,21 @@
-# React + TypeScript + Vite
+# これなに？
+playwrightで外部リンクを踏んで外部サイトに飛んだことを検証できるかを検証したかった
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# なんで？
+cypressだと外部サイトは ```origin()``` 関数みたいなやつで囲まないといけなくて冗長だった  
+vitestのブラウザーモードだとyoutubeは埋め込めなかった。iframe周りのなんかのセキュリティ設定だと思うんだけど、面倒なので深追いせずこっちを検証してみた  
 
-Currently, two official plugins are available:
+# 結論
+playwrightで外部リンクを踏んで外部サイトに飛んだことを検証できた
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
 ```
+Running 3 tests using 3 workers
+  Slow test file: [webkit] › example.spec.ts (23.5s) 
+  Slow test file: [firefox] › example.spec.ts (22.4s)
+  Consider splitting slow test files to speed up parallel execution
+  3 passed (27.3s)
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+To open last HTML report run:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+  pnpm exec playwright show-report
 ```
